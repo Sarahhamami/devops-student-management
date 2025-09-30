@@ -1,23 +1,9 @@
-pipeline {
+pipeline{
     agent any
-
-    tools {
-        maven 'maven'
-        jdk 'java'
-    }
-
-    stages {
-        stage('Checkout') {
-            steps {
-                git branch: 'master', url: 'https://github.com/Sarahhamami/devops-student-management'
-            }
-        }
-
-        stage('Build') {
-            steps {
-              
-                bat 'mvn package'
-             
+    stages{
+        stage('Testing Maven'){
+            steps{
+                sh 'mvn -version'
             }
         }
     }
