@@ -16,13 +16,13 @@ pipeline {
 
         stage('Build & Sonar') {
             steps {
-                // Ensure mvnw is executable
                 sh 'chmod +x mvnw'
-
-                // Run Maven build + Sonar
-                sh './mvnw clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar'
+                withCredentials([string(credentialsId: 'jenkins-sonar', variable: 'sqa_8dca27735bed35feb2e9bab16ad07a2bf7c92dc8')]) {
+                sh './mvnw clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar -Dsonar.login=sqa_8dca27735bed35feb2e9bab16ad07a2bf7c92dc8'
+            }
             }
         }
+
 
         stage('Tests') {
             steps {
