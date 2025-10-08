@@ -1,16 +1,19 @@
-pipeline{
+pipeline {
     agent any
-    stages{
-        stage('Testing Maven'){
-            steps{
+
+    stages {
+        stage('Testing Maven') {
+            steps {
                 sh 'mvn -version'
             }
         }
-        stage ('Build'){
-            steps{
+
+        stage('Build') {
+            steps {
                 sh 'mvn clean install -DskipTests'
             }
         }
+
         stage('Build & Sonar') {
             steps {
                 // Ensure mvnw is executable
@@ -21,9 +24,8 @@ pipeline{
             }
         }
 
-        }
-        stage('Tests'){
-            steps{
+        stage('Tests') {
+            steps {
                 sh 'mvn test'
             }
         }
