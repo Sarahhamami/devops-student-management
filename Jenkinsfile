@@ -11,10 +11,10 @@ pipeline{
                 sh 'mvn clean install'
             }
         }
-        stage('SonarQube Analysis'){
+        stage('Scan'){
             steps{
-                withSonarQubeEnv('SonarQube'){
-                    sh 'mvn run sonar'
+                withSonarQubeEnv(installationName:'SonarQube'){
+                    sh './mvnw clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9..0.2155:sonar'
                 }
             }
         }
