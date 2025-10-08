@@ -11,12 +11,16 @@ pipeline{
                 sh 'mvn clean install -DskipTests'
             }
         }
-        stage('Scan'){
-            steps{
-                withSonarQubeEnv(installationName:'SonarQube'){
-                    sh './mvnw clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar'
-                }
+        stage('Build & Sonar') {
+            steps {
+                // Ensure mvnw is executable
+                sh 'chmod +x mvnw'
+
+                // Run Maven build + Sonar
+                sh './mvnw clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar'
             }
+        }
+
         }
         stage('Tests'){
             steps{
